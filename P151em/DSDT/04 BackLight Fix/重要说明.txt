@@ -1,0 +1,6 @@
+
+DSDT里面添加了PNLF
+
+Clover 就不能添加PNLF设备（关闭ACPI/DSDT/Fixes下的 AddPNLF参数）
+
+否则失效

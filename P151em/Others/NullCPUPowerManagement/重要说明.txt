@@ -1,0 +1,8 @@
+
+
+
+安装 CPU Patch目录里面的AICPUPM Patch UEFI （即给 AppleIntelCPUPowerManagement.kext 打补丁，Ivy CPU需要这么干）
+
+然后删除 NullCPUPowerManagement.kext
+
+可以实现睿频

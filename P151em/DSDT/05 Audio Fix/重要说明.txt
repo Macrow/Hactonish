@@ -1,0 +1,9 @@
+
+已经有人在 https://github.com/vit9696/AppleALC
+
+里面加入了P150EM的Codec，设置的ID为99，
+
+因此在DSDT里面注入了 99 这个ID，可驱动 AppleALC
+
+
+另外 IRQ fix 也非常关键，在此DSDT的修复中已加入

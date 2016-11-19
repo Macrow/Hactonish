@@ -1,0 +1,7 @@
+OS-X-ACPI-Backlight
+
+
+https://github.com/RehabMan/OS-X-ACPI-Backlight
+
+
+https://www.tonymacx86.com/threads/guide-how-to-patch-dsdt-for-working-battery-status.116102/

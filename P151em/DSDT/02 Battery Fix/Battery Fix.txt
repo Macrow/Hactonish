@@ -1,0 +1,71 @@
+####################################################
+##
+##
+## https://www.tonymacx86.com/threads/guide-how-to-patch-dsdt-for-working-battery-status.116102/
+##
+##
+## Fix for P151EM (by Macrow 2016.11)
+##
+####################################################
+
+
+# 16 -> 8*2
+into device label EC code_regex BDC0,\s+16, replace_matched begin DC00,8,DC01,8, end;
+into device label EC code_regex BFC0,\s+16, replace_matched begin FC00,8,FC01,8, end;
+into device label EC code_regex BRC0,\s+16, replace_matched begin RC00,8,RC01,8, end;
+into device label EC code_regex OEM3,\s+16, replace_matched begin EM30,8,EM31,8, end;
+
+
+
+# 32 -> 8*4
+into device label EC code_regex BDV0,\s+32 replace_matched begin BD00,8,BD01,8,BD02,8,BD03,8 end;
+
+####################################################
+
+
+
+# 16 -> 8*2
+into all code_regex \^\^PCI0.LPCB.EC.BDC0, replaceall_matched begin B1B2(\^\^PCI0.LPCB.EC.DC00,\^\^PCI0.LPCB.EC.DC01), end;
+into all code_regex \^\^PCI0.LPCB.EC.BDC0, replaceall_matched begin B1B2(\^\^PCI0.LPCB.EC.DC00,\^\^PCI0.LPCB.EC.DC01), end;
+into all code_regex \^\^PCI0.LPCB.EC.BFC0, replaceall_matched begin B1B2(\^\^PCI0.LPCB.EC.FC00,\^\^PCI0.LPCB.EC.FC01), end;
+into all code_regex \^\^PCI0.LPCB.EC.BFC0, replaceall_matched begin B1B2(\^\^PCI0.LPCB.EC.FC00,\^\^PCI0.LPCB.EC.FC01), end;
+into all code_regex \^\^PCI0.LPCB.EC.BRC0, replaceall_matched begin B1B2(\^\^PCI0.LPCB.EC.RC00,\^\^PCI0.LPCB.EC.RC01), end;
+into all code_regex \^\^PCI0.LPCB.EC.OEM3, replaceall_matched begin B1B2(\^\^PCI0.LPCB.EC.EM30,\^\^PCI0.LPCB.EC.EM31), end;
+into all code_regex \^\^PCI0.LPCB.EC.OEM3, replaceall_matched begin B1B2(\^\^PCI0.LPCB.EC.EM30,\^\^PCI0.LPCB.EC.EM31), end;
+into all code_regex \^\^PCI0.LPCB.EC.OEM3, replaceall_matched begin B1B2(\^\^PCI0.LPCB.EC.EM30,\^\^PCI0.LPCB.EC.EM31), end;
+into all code_regex \^\^PCI0.LPCB.EC.OEM3, replaceall_matched begin B1B2(\^\^PCI0.LPCB.EC.EM30,\^\^PCI0.LPCB.EC.EM31), end;
+into all code_regex \^\^PCI0.LPCB.EC.OEM3, replaceall_matched begin B1B2(\^\^PCI0.LPCB.EC.EM30,\^\^PCI0.LPCB.EC.EM31), end;
+into all code_regex \^\^PCI0.LPCB.EC.OEM3, replaceall_matched begin B1B2(\^\^PCI0.LPCB.EC.EM30,\^\^PCI0.LPCB.EC.EM31), end;
+into all code_regex \^\^PCI0.LPCB.EC.OEM3, replaceall_matched begin B1B2(\^\^PCI0.LPCB.EC.EM30,\^\^PCI0.LPCB.EC.EM31), end;
+into all code_regex \^LPCB.EC.OEM3, replaceall_matched begin B1B2(\^LPCB.EC.EM30,\^LPCB.EC.EM31), end;
+
+into method label CWAK code_regex Store\s+\(\^LPCB.EC.ECCA,\s+\^LPCB.EC.OEM3\) replace_matched
+begin
+Store (^LPCB.EC.ECCA, ^LPCB.EC.EM30)
+Store (^LPCB.EC.ECCA, ^LPCB.EC.EM31)
+end;
+
+# 32 -> 8*4
+into all code_regex \^\^PCI0.LPCB.EC.BDV0, replaceall_matched begin B1B4(\^\^PCI0.LPCB.EC.BD00,\^\^PCI0.LPCB.EC.BD01,\^\^PCI0.LPCB.EC.BD02,\^\^PCI0.LPCB.EC.BD03), end;
+
+
+####################################################
+
+into method label B1B2 remove_entry;
+into definitionblock code_regex . insert
+begin
+Method (B1B2, 2, NotSerialized) { Return(Or(Arg0, ShiftLeft(Arg1, 8))) }\n
+end;
+
+into method label B1B4 remove_entry;
+into definitionblock code_regex . insert
+begin
+Method (B1B4, 4, NotSerialized)\n
+{\n
+    Store(Arg3, Local0)\n
+    Or(Arg2, ShiftLeft(Local0, 8), Local0)\n
+    Or(Arg1, ShiftLeft(Local0, 8), Local0)\n
+    Or(Arg0, ShiftLeft(Local0, 8), Local0)\n
+    Return(Local0)\n
+}\n
+end;

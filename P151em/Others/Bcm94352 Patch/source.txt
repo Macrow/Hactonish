@@ -1,0 +1,5 @@
+
+
+https://github.com/the-darkvoid/BrcmPatchRAM
+
+https://github.com/RehabMan/OS-X-BrcmPatchRAM
