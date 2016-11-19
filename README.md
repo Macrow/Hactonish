@@ -51,6 +51,6 @@ sudo mount -t msdos /dev/disk1s1 /Volumes/EFI
 ```
 ## 第二步 用安装盘或者macOS PE引导已经安装好的系统
 
-## 安装 AICPUPM Patch UEFI ，删除NullCPUPowerManagement，安装系列驱动
+## 第三步 安装 AICPUPM Patch UEFI ，删除NullCPUPowerManagement，安装Clover到系统盘，并安装系列驱动
 
 说明： 如果加入Clover不能正常启动，可以再用另一个U盘来制作Clover启动盘（比如在windows下用BDU制作，然后插入两个U盘进行安装)
